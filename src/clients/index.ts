@@ -5,12 +5,17 @@ import { AuthClient } from './AuthClient';
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8080/api/',
     headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:8080',
+        'Access-Control-Allow-Origin': '*',
     },
 });
 
 axiosInstance.interceptors.request.use((config) => {
-    config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        config.headers['Authorization'] =
+            'Bearer ' + localStorage.getItem('token');
+    }
 
     return config;
 });
