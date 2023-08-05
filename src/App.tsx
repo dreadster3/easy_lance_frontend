@@ -1,8 +1,18 @@
+import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
+import { AuthProvider } from "./providers/AuthProvider";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  return <AppRoutes />;
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </QueryClientProvider>
+  );
 }
 
 export default App;
