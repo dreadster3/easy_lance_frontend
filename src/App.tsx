@@ -1,18 +1,17 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import "./App.css";
-import { AuthProvider } from "./providers/AuthProvider";
-import AppRoutes from "./routes/AppRoutes";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { AuthProvider } from './providers/AuthProvider';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  const queryClient = new QueryClient();
+    const queryClient = new QueryClient();
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
-    </QueryClientProvider>
-  );
+    return (
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <AppRoutes />
+            </AuthProvider>
+        </QueryClientProvider>
+    );
 }
 
 export default App;

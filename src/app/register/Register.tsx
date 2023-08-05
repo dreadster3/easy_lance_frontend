@@ -1,20 +1,22 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormInput from '../../components/FormInput';
-import useLogin from '../../hooks/useLogin';
-import { useAuth } from '../../providers/AuthProvider';
+import useRegister from '../../hooks/useRegister';
 
-function Login() {
-    const { setToken } = useAuth();
-    const { login } = useLogin();
+function Register() {
+    const navigate = useNavigate();
+    const { register } = useRegister();
+    const [email, setEmail] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        login(
-            { username, password },
+        register(
+            { username, email, password },
             {
-                onSuccess: (token) => {
-                    setToken(token);
+                onSuccess: () => {
+                    console.log('Success');
+                    navigate('/login');
                 },
             },
         );
@@ -29,11 +31,17 @@ function Login() {
                     alt="easy-lance"
                 />
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                    Sign in to your account
+                    Sign up your account
                 </h2>
             </div>
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form className="space-y-6" onSubmit={handleSubmit}>
+                    <FormInput
+                        label="Email"
+                        type="email"
+                        value={email}
+                        setValue={setEmail}
+                    />
                     <FormInput
                         label="Username"
                         value={username}
@@ -50,7 +58,7 @@ function Login() {
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             type="submit"
                         >
-                            Login
+                            Register
                         </button>
                     </div>
                 </form>
@@ -59,4 +67,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Register;

@@ -26,7 +26,7 @@ export class AuthClient {
         username: string,
         email: string,
         password: string,
-    ): Promise<string> {
+    ): Promise<void> {
         const options: AxiosRequestConfig = {
             method: 'POST',
             url: 'users/register',
@@ -37,8 +37,6 @@ export class AuthClient {
             },
         };
 
-        const response = await this._axiosInstance.request(options);
-
-        return response.data.token;
+        await this._axiosInstance.request(options);
     }
 }
