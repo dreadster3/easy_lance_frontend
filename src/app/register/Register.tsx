@@ -16,7 +16,6 @@ function Register() {
             { username, email, password },
             {
                 onSuccess: () => {
-                    console.log('Success');
                     navigate('/login');
                 },
             },
