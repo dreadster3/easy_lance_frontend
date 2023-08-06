@@ -6,8 +6,6 @@ import useGetJobs from '../../hooks/useGetJobs';
 import { DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import useCreateJob from '../../hooks/useCreateJob';
 import useDeleteJob from '../../hooks/useDeleteJob';
-import ReactLoading from 'react-loading';
-import LoadingScreen from '../../components/LoadingScreen';
 import LoadingScreenWrapper from '../../components/LoadingScreenWrapper';
 
 function Home() {
