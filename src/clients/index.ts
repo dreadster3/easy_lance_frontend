@@ -1,5 +1,5 @@
 import { JobClient } from './JobClient';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { AuthClient } from './AuthClient';
 
 const axiosInstance = axios.create({
@@ -16,6 +16,35 @@ axiosInstance.interceptors.request.use((config) => {
     }
 
     return config;
+});
+
+axiosInstance.interceptors.response.use(null, async (error) => {
+    const originalConfig = error.config;
+    const url = originalConfig.url;
+
+    if (url === 'users/refresh' && error.response.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    } else if (error.response.status === 401) {
+        const options: AxiosRequestConfig = {
+            method: 'GET',
+            url: 'users/refresh',
+            withCredentials: true,
+        };
+
+        try {
+            const response = await axiosInstance.request(options);
+
+            localStorage.setItem('token', response.data.access_token);
+            originalConfig._retry = true;
+        } catch (error) {
+            console.error(error);
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+        }
+    }
+
+    return Promise.reject(error);
 });
 
 const authClient = new AuthClient(axiosInstance);

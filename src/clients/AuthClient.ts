@@ -15,11 +15,12 @@ export class AuthClient {
                 username,
                 password,
             },
+            withCredentials: true,
         };
 
         const response = await this._axiosInstance.request(options);
 
-        return response.data.token;
+        return response.data.access_token;
     }
 
     async register_async(
