@@ -33,7 +33,7 @@ function Home() {
                     start_date: arg.start,
                     end_date: arg.end,
                     job_type_id: 1,
-                    job_rate_curve_id: 2,
+                    job_rate_curve_id: 1,
                 },
                 {
                     onSuccess: () => refetch(),

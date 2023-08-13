@@ -3,10 +3,8 @@ import { jobClient } from '../clients';
 import { IJobDto } from '../dtos/JobDto';
 
 function useCreateJob() {
-    const { mutate, isLoading } = useMutation(
-        'job-create',
-        (job: IJobDto) => jobClient.create_job_async(job),
-        {},
+    const { mutate, isLoading } = useMutation((job: IJobDto) =>
+        jobClient.create_job_async(job),
     );
 
     return { create_job: mutate, isLoading };

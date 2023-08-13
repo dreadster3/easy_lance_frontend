@@ -1,6 +1,8 @@
 import { JobClient } from './JobClient';
 import axios, { AxiosRequestConfig } from 'axios';
 import { AuthClient } from './AuthClient';
+import { JobRateCurveClient } from './JobRateCurveClient';
+import { SummaryClient } from './SummaryClient';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8080/api/',
@@ -49,6 +51,10 @@ axiosInstance.interceptors.response.use(null, async (error) => {
 
 const authClient = new AuthClient(axiosInstance);
 const jobClient = new JobClient(axiosInstance);
+const jobRateCurveClient = new JobRateCurveClient(axiosInstance);
+const summaryClient = new SummaryClient(axiosInstance);
 
 export { jobClient };
 export { authClient };
+export { jobRateCurveClient };
+export { summaryClient };
